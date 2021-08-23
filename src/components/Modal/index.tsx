@@ -7,6 +7,7 @@ interface NewClientModalProps {
 }
 
 export function PatientModal({ isOpen, onRequestClose }: NewClientModalProps) {
+    
     return (
         <Modal
             closeTimeoutMS={300}

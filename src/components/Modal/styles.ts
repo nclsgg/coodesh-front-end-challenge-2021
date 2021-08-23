@@ -8,7 +8,7 @@ export const Container = styled.div`
         display: flex;
         justify-content: space-between;
         margin-top: 3rem;
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         color: var(--text-body);
 
         span + span {
