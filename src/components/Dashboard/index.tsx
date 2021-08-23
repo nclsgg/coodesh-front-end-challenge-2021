@@ -1,8 +1,22 @@
+import { useState } from "react";
+import { PatientModal } from "../Modal";
 import { SearchInput } from "../SearchInput";
 import { Table } from "../Table";
 import { Container } from "./styles";
 
 export function Dashboard() {
+    const [isNewPatientModalOpen, setIsNewPatientModalOpen] = useState(false);
+
+    function handleOpenNewPatientModal() {
+        setIsNewPatientModalOpen(true);
+
+    }
+
+    function handleCloseNewPatientModal() {
+        setIsNewPatientModalOpen(false)
+
+    }
+
     return (
         <Container>
             <span>
@@ -13,7 +27,8 @@ export function Dashboard() {
                 tincidunt maximus ligula.
             </span>
             <SearchInput />
-            <Table />
+            <Table onOpenNewPatientModal={handleOpenNewPatientModal}/>
+            <PatientModal isOpen={isNewPatientModalOpen} onRequestClose={handleCloseNewPatientModal}/>
         </Container>
     ); 
 }

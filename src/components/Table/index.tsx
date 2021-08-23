@@ -1,6 +1,10 @@
 import { Container } from "./styles";
 
-export function Table() {
+interface HeaderProps {
+    onOpenNewPatientModal: () => void;
+}
+
+export function Table({ onOpenNewPatientModal }: HeaderProps) {
     return (
         <Container>
             <table>
@@ -13,32 +17,32 @@ export function Table() {
                 </thead>
 
                 <tbody>
-                    <tr>
+                    <tr onClick={onOpenNewPatientModal}>
                         <td>Nicolas Guadagno</td>
                         <td>Male</td>
                         <td>23/09/2002</td>
                     </tr>
-                    <tr>
+                    <tr onClick={onOpenNewPatientModal}>
                         <td>Nicolas Guadagno</td>
                         <td>Male</td>
                         <td>23/09/2002</td>
                     </tr>
-                    <tr>
+                    <tr onClick={onOpenNewPatientModal}>
                         <td>Nicolas Guadagno</td>
                         <td>Male</td>
                         <td>23/09/2002</td>
                     </tr>
-                    <tr>
+                    <tr onClick={onOpenNewPatientModal}>
                         <td>Nicolas Guadagno</td>
                         <td>Male</td>
                         <td>23/09/2002</td>
                     </tr>
-                    <tr>
+                    <tr onClick={onOpenNewPatientModal}>
                         <td>Nicolas Guadagno</td>
                         <td>Male</td>
                         <td>23/09/2002</td>
                     </tr>
-                    <tr>
+                    <tr onClick={onOpenNewPatientModal}>
                         <td>Nicolas Guadagno</td>
                         <td>Male</td>
                         <td>23/09/2002</td>
