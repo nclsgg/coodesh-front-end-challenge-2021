@@ -28,6 +28,9 @@ export function Dashboard() {
             </span>
             <SearchInput />
             <Table onOpenNewPatientModal={handleOpenNewPatientModal}/>
+            <button type="button">
+                Load More
+            </button>
             <PatientModal isOpen={isNewPatientModalOpen} onRequestClose={handleCloseNewPatientModal}/>
         </Container>
     ); 
