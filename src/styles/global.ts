@@ -97,4 +97,8 @@ export const GlobalStyle = createGlobalStyle`
     .ReactModal__Overlay--before-close{
         opacity: 0;
     }
+
+    .gender {
+            text-transform: capitalize;
+        }
 `

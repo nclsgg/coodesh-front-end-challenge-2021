@@ -1,37 +1,31 @@
-import { useEffect, useState } from "react";
-import api from "../../services/api";
+import { useCallback, useState } from "react";
+import { Patient } from "../Dashboard";
+import { PatientModal } from "../Modal";
 import { Container } from "./styles";
 
-interface HeaderProps {
-    onOpenNewPatientModal: () => void;
-}
+type TableProps = {
+    patients: Patient[]
+  }
 
-interface Patient {
-    name: {
-        first: string
-        last: string
-        title: string
-      }
-    gender: string
-    dob: {
-        date: Date
-    }
-}
+export function Table({ patients }: TableProps) {
+    const [modalPatient, setModalPatient] = useState<Patient>(Object)
+    const [showModal, setShowModal] = useState(false)
 
-export function Table({ onOpenNewPatientModal }: HeaderProps) {
-    const [ patients, setPatients ] = useState<Patient[]>([]);
-
-    useEffect(() => {
-        async function loadPatients() {
-          const { data } = await api.get('/?page=1&results=50&seed=ncls')
-          const patients = data.results;
-          setPatients(patients);
-        }   
-        loadPatients();
-      }, []);
+    const showPatient = useCallback((patient: Patient) => {
+        setModalPatient(patient)
+        setShowModal(true)
+      }, [])
+    
 
     return (
         <Container>
+            {modalPatient && (
+            <PatientModal 
+            showModal={showModal}
+            patient={modalPatient}
+            closeModal={() => setShowModal(false)}
+            />
+            )}
             <table>
                 <thead>
                     <tr>
@@ -43,10 +37,10 @@ export function Table({ onOpenNewPatientModal }: HeaderProps) {
 
                 <tbody>
                     {patients.map(patient => (
-                    <tr onClick={onOpenNewPatientModal}>
+                    <tr onClick={() => showPatient(patient)}>
                         <td>{patient.name.first} {patient.name.last}</td>
-                        <td>{patient.gender}</td>
-                        <td>{patient.dob.date}</td>
+                        <td className="gender">{patient.gender}</td>
+                        <td>{new Date(patient.dob.date).toLocaleDateString()}</td>
                     </tr> 
                     ))}
                 </tbody>

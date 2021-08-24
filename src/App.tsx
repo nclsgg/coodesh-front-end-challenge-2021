@@ -7,9 +7,6 @@ import { PatientsProvider, usePatients } from './hooks/usePatients';
 Modal.setAppElement('#root');
 
 function App() {
-  const { patients } = usePatients();
-  console.log(patients)
-  
   return (
     <PatientsProvider>
       <Header />

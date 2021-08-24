@@ -1,10 +1,17 @@
 import { Container } from "./styles";
 
-export function SearchInput() {
+interface SearchInputProps {
+    value: string
+    onChange: (string: string) => void
+  }
+
+export function SearchInput({value, onChange}: SearchInputProps) {
     return (
         <Container>
             <input 
             placeholder="Search by name"
+            value={value}
+            onChange={(event) => onChange(event.target.value)}
             />
         </Container>
     );

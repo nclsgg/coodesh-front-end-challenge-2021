@@ -1,21 +1,77 @@
-import { useState } from "react";
-import { PatientModal } from "../Modal";
+import { useCallback } from "react";
+import { useEffect, useState } from "react";
+import api from "../../services/api";
 import { SearchInput } from "../SearchInput";
 import { Table } from "../Table";
 import { Container } from "./styles";
 
+export type Patient = {
+    login: {
+      username: string
+      uuid: string
+    }
+    name: {
+      first: string
+      last: string
+      title: string
+    }
+    email: string
+    cell: string
+    phone: string
+    gender: string
+    dob: {
+      age: number
+      date: Date
+    }
+    picture: {
+      large: string
+      medium: string
+      thumbnail: string
+    }
+    nat: string
+    location: {
+      city: string
+      country: string
+      postcode: number
+      state: string
+      street: {
+        name: string
+        number: number
+      }
+    }
+  }
+
 export function Dashboard() {
-    const [isNewPatientModalOpen, setIsNewPatientModalOpen] = useState(false);
+    const [patients, setPatients] = useState<Patient[]>([])
+    const [page, setPage] = useState(1)
+    const [queryText, setQueryText] = useState('')
 
-    function handleOpenNewPatientModal() {
-        setIsNewPatientModalOpen(true);
+    useEffect(() => {
+        async function loadPatients() {
+          const { data } = await api.get(`/?page=${page}&results=50&seed=ncls`)
+          const patients = data.results;
+          setPatients(patients);
+        }   
+        loadPatients();
+      }, []);
 
+
+    const lowerCaseQuery = queryText.toLowerCase()
+    const filteredPatients = patients.filter(
+        (patient) =>
+          patient.name.first.toLowerCase().includes(lowerCaseQuery) ||
+          patient.name.last.toLowerCase().includes(lowerCaseQuery) ||
+          patient.nat.toLowerCase().includes(lowerCaseQuery)
+      )
+
+    const handleSearch = (text: string) => {
+        setQueryText(text)
     }
 
-    function handleCloseNewPatientModal() {
-        setIsNewPatientModalOpen(false)
-
-    }
+    const loadMore = useCallback(() => {
+        setPage((prevPage) => prevPage + 1)
+        console.log(page)
+    }, [])
 
     return (
         <Container>
@@ -26,12 +82,11 @@ export function Dashboard() {
                 iaculis. Pellentesque turpis nibh, lacinia eget magna vitae,
                 tincidunt maximus ligula.
             </span>
-            <SearchInput />
-            <Table onOpenNewPatientModal={handleOpenNewPatientModal}/>
-            <button type="button">
+            <SearchInput value={queryText} onChange={handleSearch}/>
+            <Table patients={queryText.length < 1 ? patients : filteredPatients}/>
+            <button type="button" onClick={loadMore}>
                 Load More
             </button>
-            <PatientModal isOpen={isNewPatientModalOpen} onRequestClose={handleCloseNewPatientModal}/>
         </Container>
     ); 
 }
