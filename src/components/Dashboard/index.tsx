@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { SearchInput } from "../SearchInput";
@@ -43,6 +42,7 @@ export type Patient = {
 
 export function Dashboard() {
     const [patients, setPatients] = useState<Patient[]>([])
+    const [ loading, setLoading ] = useState(false)
     const [page, setPage] = useState(1)
     const [queryText, setQueryText] = useState('')
 
@@ -50,10 +50,16 @@ export function Dashboard() {
         async function loadPatients() {
           const { data } = await api.get(`/?page=${page}&results=50&seed=ncls`)
           const patients = data.results;
-          setPatients(patients);
+          setLoading(true)
+          setPatients((prevPatients) => [...prevPatients, ...patients]);
         }   
         loadPatients();
-      }, []);
+        setLoading(false)
+      }, [page]);
+
+    async function loadMore() {
+      setPage((prevPage) => prevPage + 1)
+     }
 
 
     const lowerCaseQuery = queryText.toLowerCase()
@@ -68,11 +74,6 @@ export function Dashboard() {
         setQueryText(text)
     }
 
-    const loadMore = useCallback(() => {
-        setPage((prevPage) => prevPage + 1)
-        console.log(page)
-    }, [])
-
     return (
         <Container>
             <span>
@@ -84,8 +85,8 @@ export function Dashboard() {
             </span>
             <SearchInput value={queryText} onChange={handleSearch}/>
             <Table patients={queryText.length < 1 ? patients : filteredPatients}/>
-            <button type="button" onClick={loadMore}>
-                Load More
+            <button type="button" onClick={loadMore} disabled={!loading}>
+                {loading ? "Load More" : "Loading"}
             </button>
         </Container>
     ); 

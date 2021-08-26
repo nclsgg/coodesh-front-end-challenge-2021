@@ -17,6 +17,8 @@ export const Container = styled.div`
     button {
         margin-top: 1rem;
         font-size: 1rem;
+        margin-left: auto;
+        margin-right: auto;
         color: #FFF;
         background: var(--blue);
         border: 0;

@@ -45,6 +45,7 @@ export function Table({ patients }: TableProps) {
                     ))}
                 </tbody>
             </table>
+            
         </Container>
 
     );
