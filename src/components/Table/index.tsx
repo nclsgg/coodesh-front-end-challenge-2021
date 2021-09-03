@@ -31,15 +31,17 @@ export function Table({ patients }: TableProps) {
                     <tr>
                         <th>Name</th>
                         <th>Gender</th>
+                        <th>Nationality</th>
                         <th>Birth</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {patients.map(patient => (
-                    <tr onClick={() => showPatient(patient)}>
+                    <tr key={patient.login.uuid} onClick={() => showPatient(patient)}>
                         <td>{patient.name.first} {patient.name.last}</td>
                         <td className="gender">{patient.gender}</td>
+                        <td>{patient.nat}</td>
                         <td>{new Date(patient.dob.date).toLocaleDateString()}</td>
                     </tr> 
                     ))}
