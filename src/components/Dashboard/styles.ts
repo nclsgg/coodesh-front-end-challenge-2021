@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     max-width: 1120px;
     margin: 0 auto;
     padding: 2.5rem 1rem;
@@ -32,4 +30,15 @@ export const Container = styled.div`
             filter: brightness(0.9);
         }
     }
+
+    .filters {
+        display: flex;
+        margin-top: 1rem;
+
+        #last {
+            margin-left: 1rem;
+        }
+
+    }
+
 `
