@@ -80,6 +80,15 @@ export function Dashboard() {
     }
   }
 
+  function resetQuery() {
+    setPatients([])
+    setGender("")
+    setNat("")
+    setPage(1)
+    console.log(nat)
+    console.log(gender)
+  }
+
   useEffect(() => {
     loadPatients()
     setLoading(false)
@@ -89,9 +98,8 @@ export function Dashboard() {
     if (gender.length > 1) {
       setPatients(genderPatients)
     } else {
-      setPatients([])
+      resetQuery()
       loadPatients()
-      setPage(1)
     }
   }, [gender])
 
@@ -99,8 +107,7 @@ export function Dashboard() {
     if (nat.length > 1) {
       setPatients(natPatients)
     } else {
-      setPatients([])
-      setPage(1)
+      resetQuery()
       loadPatients()
     }
   }, [nat])
