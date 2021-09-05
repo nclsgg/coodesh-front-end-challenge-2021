@@ -1,18 +1,18 @@
-import { Dashboard } from './components/Dashboard';
-import { Header } from './components/Header';
-import { GlobalStyle } from "./styles/global";
-import Modal from 'react-modal';
+import { Dashboard } from "./components/Dashboard"
+import { Header } from "./components/Header"
+import { GlobalStyle } from "./styles/global"
+import Modal from "react-modal"
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root")
 
 function App() {
   return (
     <>
       <Header />
-      <Dashboard/>
+      <Dashboard />
       <GlobalStyle />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
