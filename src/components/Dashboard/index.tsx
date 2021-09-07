@@ -62,6 +62,7 @@ export function Dashboard() {
   const [gender, setGender] = useState("")
   const [nat, setNat] = useState("")
 
+
   const regexGender = new RegExp(`\\b${gender}\\b`)
   const regexNat = new RegExp(`\\b${nat}\\b`)
 
@@ -85,8 +86,6 @@ export function Dashboard() {
     setGender("")
     setNat("")
     setPage(1)
-    console.log(nat)
-    console.log(gender)
   }
 
   useEffect(() => {
@@ -211,7 +210,7 @@ export function Dashboard() {
       <button
         type="button"
         onClick={loadMore}
-        disabled={gender ? true : !loading}
+        disabled={gender || nat ? true : !loading}
       >
         {loading ? "Load More" : "Loading"}
       </button>
