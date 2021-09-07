@@ -68,7 +68,7 @@ This project was developed with Yarn, using create-react-app and typescript temp
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/nclsgg/dt-money-rocketseat/
+   git clone https://github.com/nclsgg/coodesh-front-end-challenge-2021
    ```
 2. Install YARN packages
    ```sh
