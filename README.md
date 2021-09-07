@@ -37,7 +37,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+https://user-images.githubusercontent.com/48268521/132420741-9862e86d-1762-4316-b849-d37c4dfc2749.mp4
 
 This project is part of the frontend challenge of the coodesh platform. The application was developed using React.js and Typescript. Consists of listing and organizing patient data from a fictitious pharmacy, "Pharma inc". These data are supplied and consumed through the randomuser API.
 ### Built With
