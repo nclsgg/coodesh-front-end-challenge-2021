@@ -56,6 +56,7 @@ export type Patient = {
 export function Dashboard() {
   const classes = useStyles()
   const [patients, setPatients] = useState<Patient[]>([])
+  const [filteredPatients, setFilteredPatients] = useState<Patient[]>([])
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState(1)
   const [queryText, setQueryText] = useState("")
@@ -81,35 +82,40 @@ export function Dashboard() {
     }
   }
 
-  function resetQuery() {
-    setPatients([])
-    setGender("")
-    setNat("")
-    setPage(1)
-  }
-
   useEffect(() => {
     loadPatients()
     setLoading(false)
   }, [page])
 
   useEffect(() => {
-    if (gender.length > 1) {
-      setPatients(genderPatients)
-    } else {
-      resetQuery()
-      loadPatients()
-    }
-  }, [gender])
+    const handleGenderWhithoutNatPatients = patients.filter((patient) =>
+    patient.gender.match(regexGender)
+    )
 
-  useEffect(() => {
-    if (nat.length > 1) {
-      setPatients(natPatients)
+    const handleNatWithoutGenderPatients = patients.filter((patient) => patient.nat.match(regexNat))
+
+    const handleGenderAndNatPatients = gender.length ? handleGenderWhithoutNatPatients.filter((patient) => patient.nat.match(regexNat)) : handleNatWithoutGenderPatients.filter((patient) =>
+    patient.gender.match(regexGender))
+
+    
+
+    if (gender.length && !nat.length) {
+      setFilteredPatients(handleGenderWhithoutNatPatients)
+      console.log("Tipo 1")
+    } else  if (!gender.length && nat.length) {
+      setFilteredPatients(handleNatWithoutGenderPatients)
+      console.log("Tipo 2")
+    } else if (gender.length && nat.length) {
+      setFilteredPatients(handleGenderAndNatPatients)
+      console.log(handleNatWithoutGenderPatients)
+      console.log(handleGenderWhithoutNatPatients)
+      console.log("Tipo 3")
     } else {
-      resetQuery()
-      loadPatients()
+      setFilteredPatients([])
+      setGender("")
+      setNat("")
     }
-  }, [nat])
+  }, [gender, nat])
 
   async function loadMore() {
     setPage((prevPage) => prevPage + 1)
@@ -117,7 +123,11 @@ export function Dashboard() {
 
   const lowerCaseQuery = queryText.toLowerCase()
 
-  const filteredPatients = patients.filter(
+  const patientsByName = gender.length || nat.length ? filteredPatients.filter(
+    (patient) =>
+      patient.name.first.toLowerCase().includes(lowerCaseQuery) ||
+      patient.name.last.toLowerCase().includes(lowerCaseQuery)
+  ) : patients.filter(
     (patient) =>
       patient.name.first.toLowerCase().includes(lowerCaseQuery) ||
       patient.name.last.toLowerCase().includes(lowerCaseQuery)
@@ -130,12 +140,6 @@ export function Dashboard() {
   const handlePatientsNatFilter = (e: any) => {
     setNat(e.target.value)
   }
-
-  const genderPatients = patients.filter((patient) =>
-    patient.gender.match(regexGender)
-  )
-
-  const natPatients = patients.filter((patient) => patient.nat.match(regexNat))
 
   const handleSearch = (text: string) => {
     setQueryText(text)
@@ -206,7 +210,7 @@ export function Dashboard() {
           </Select>
         </FormControl>
       </div>
-      <Table patients={queryText.length < 1 ? patients : filteredPatients} />
+      <Table patients={queryText.length < 1 ? gender.length || nat.length ? filteredPatients : patients : patientsByName} />
       <button
         type="button"
         onClick={loadMore}
