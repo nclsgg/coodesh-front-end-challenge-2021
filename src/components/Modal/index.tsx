@@ -16,6 +16,7 @@ export function PatientModal({ showModal, closeModal, patient }: ModalProps) {
   return (
     <Modal
       closeTimeoutMS={300}
+      ariaHideApp={false}
       isOpen={showModal}
       onRequestClose={closeModal}
       overlayClassName="react-modal-overlay"
@@ -47,7 +48,7 @@ export function PatientModal({ showModal, closeModal, patient }: ModalProps) {
             <span>{new Date(patient.dob.date).toLocaleDateString()}</span>
             <span>{patient.phone}</span>
             <span>{patient.nat}</span>
-            <span>{patient.location.street.name}</span>
+            <span>{patient.location.street.name}, {patient.location.street.number} - {patient.location.city}, {patient.location.state}</span>
             <span>{patient.login.uuid}</span>
           </div>
         </div>

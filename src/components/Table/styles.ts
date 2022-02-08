@@ -20,6 +20,7 @@ export const Container = styled.div`
     tbody {
       tr {
         transition: filter 0.3s;
+        cursor: pointer;
 
         &:hover {
           filter: brightness(0.9);

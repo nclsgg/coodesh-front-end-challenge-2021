@@ -63,31 +63,30 @@ export function Dashboard() {
   const [gender, setGender] = useState("")
   const [nat, setNat] = useState("")
 
-
-  const regexGender = new RegExp(`\\b${gender}\\b`)
-  const regexNat = new RegExp(`\\b${nat}\\b`)
-
   const results = 10
 
-  async function loadPatients() {
-    const { data } = await api.get(
-      `/?page=${page}&results=${results}&seed=ncls`
-    )
-    const patientsNew = data.results
-    setLoading(true)
-    if (page > 1) {
-      setPatients((prevPatients) => [...prevPatients, ...patientsNew])
-    } else {
-      setPatients(patientsNew)
-    }
-  }
-
   useEffect(() => {
+    async function loadPatients() {
+      const { data } = await api.get(
+        `/?page=${page}&results=${results}&seed=ncls`
+      )
+      const patientsNew = data.results
+      setLoading(true)
+      if (page > 1) {
+        setPatients((prevPatients) => [...prevPatients, ...patientsNew])
+      } else {
+        setPatients(patientsNew)
+      }
+    }
+
     loadPatients()
     setLoading(false)
   }, [page])
 
   useEffect(() => {
+    const regexGender = new RegExp(`\\b${gender}\\b`)
+    const regexNat = new RegExp(`\\b${nat}\\b`)
+
     const handleGenderWhithoutNatPatients = patients.filter((patient) =>
     patient.gender.match(regexGender)
     )
@@ -107,15 +106,13 @@ export function Dashboard() {
       console.log("Tipo 2")
     } else if (gender.length && nat.length) {
       setFilteredPatients(handleGenderAndNatPatients)
-      console.log(handleNatWithoutGenderPatients)
-      console.log(handleGenderWhithoutNatPatients)
       console.log("Tipo 3")
     } else {
       setFilteredPatients([])
       setGender("")
       setNat("")
     }
-  }, [gender, nat])
+  }, [gender, nat, patients])
 
   async function loadMore() {
     setPage((prevPage) => prevPage + 1)
