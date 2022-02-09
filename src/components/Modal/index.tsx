@@ -3,21 +3,17 @@ import { Patient } from "../Dashboard"
 import { Container } from "./styles"
 
 interface ModalProps {
-  showModal: boolean
   closeModal: () => void
   patient: Patient
 }
 
-export function PatientModal({ showModal, closeModal, patient }: ModalProps) {
-  if (!showModal) {
-    return null
-  }
+export function PatientModal({ closeModal, patient }: ModalProps) {
 
   return (
     <Modal
+      isOpen={true}
       closeTimeoutMS={300}
       ariaHideApp={false}
-      isOpen={showModal}
       onRequestClose={closeModal}
       overlayClassName="react-modal-overlay"
       className="react-modal-content"

@@ -17,13 +17,13 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "@testing-library/dom": "^8.11.2",
-    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/dom": "^8.11.3",
+    "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^12.1.10",
+    "@testing-library/user-event": "^13.5.0",
     "@types/enzyme": "^3.10.11",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^27.4.0",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -37,8 +37,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "set CI=true && react-scripts test --coverage src",
     "eject": "react-scripts eject",
     "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/components/**/*.tsx"
+    ]
   },
   "eslintConfig": {
     "extends": [

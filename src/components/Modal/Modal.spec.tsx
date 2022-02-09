@@ -42,20 +42,10 @@ describe("Modal component", () => {
   it("renders correctly", () => {
 
     render(
-      <PatientModal showModal={true} closeModal={() => {}} patient={patient}/>
+      <PatientModal closeModal={() => {}} patient={patient}/>
     )
 
 
     expect(screen.getByText("Name:")).toBeInTheDocument()
   })
-
-  it("modal should be closed", () => {
-    render(
-      <PatientModal showModal={false} closeModal={() => {}} patient={patient}/>
-    )
-
-    const hasLabel = screen.queryByText(patient.name.first + " " + patient.name.last)
-
-    expect(hasLabel).toBeNull()
-    })
 })

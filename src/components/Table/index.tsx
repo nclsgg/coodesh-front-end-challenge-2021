@@ -18,13 +18,12 @@ export function Table({ patients }: TableProps) {
 
   return (
     <Container>
-      {modalPatient && (
+      {showModal ? modalPatient && (
         <PatientModal
-          showModal={showModal}
           patient={modalPatient}
           closeModal={() => setShowModal(false)}
         />
-      )}
+      ): null}
       <table>
         <thead>
           <tr>

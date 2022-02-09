@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Table } from "."
 
 describe("Table component", () => {
@@ -55,4 +56,37 @@ describe("Table component", () => {
 
     expect(screen.getByText(patient[0].name.first + " " + patient[0].name.last)).toBeInTheDocument()
   })
+
+  it("should modal starts closed and open when click on cell", () => {
+
+    render(
+      <Table patients={patient}/>
+    )
+
+    expect(screen.queryByText(patient[0].email)).toBeNull()
+
+    const userTR = screen.getByRole('cell', {name: patient[0].gender})
+    
+    userEvent.click(userTR)
+
+    expect(screen.getByText(patient[0].email)).toBeInTheDocument()
+    })
+
+    it("should modal close", () => {
+
+      render(
+        <Table patients={patient}/>
+      )
+  
+      expect(screen.queryByText(patient[0].email)).toBeNull()
+  
+      const userTR = screen.getByRole('cell', {name: patient[0].gender})
+      
+      userEvent.click(userTR)
+  
+      expect(screen.getByText(patient[0].email)).toBeInTheDocument()
+
+      userEvent.keyboard('{Escape}')
+      expect(screen.queryByText(patient[0].email)).not.toBeInTheDocument()
+      })
 })
