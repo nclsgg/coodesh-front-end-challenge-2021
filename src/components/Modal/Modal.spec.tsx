@@ -5,7 +5,7 @@ describe("Modal component", () => {
 
   let patient = {
     login: {
-      username: "dfsdfsdf",
+      username: "NicolasGG",
       uuid: "123",
     },
     name: {
@@ -13,7 +13,7 @@ describe("Modal component", () => {
       last: "gomes",
       title: "guadagno",
     },
-    email: "sdfsdf@gmail.com",
+    email: "nicolas@gmail.com",
     cell: "21965729349",
     phone: "21965729349",
     gender: "male",
@@ -22,19 +22,19 @@ describe("Modal component", () => {
       date: new Date(),
     },
     picture: {
-      large: "fsdfsdf",
-      medium: "sdfsdf",
-      thumbnail: "sdfsdf",
+      large: "linktopicturelarge",
+      medium: "linktopicturemedium",
+      thumbnail: "linktothumbnail",
     },
     nat: "BR",
     location: {
-      city: "sdfsdf",
-      country: "sdfsdf",
-      postcode: 123,
-      state: "sdfsdf",
+      city: "Rio de Janeiro",
+      country: "RJ",
+      postcode: 12345612,
+      state: "Rio de Janeiro",
       street: {
-        name: "sdfffd",
-        number: 123,
+        name: "Rua",
+        number: 12,
       },
     }
   }
